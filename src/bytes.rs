@@ -107,7 +107,8 @@ pub struct Bytes {
     vtable: &'static Vtable,
 }
 
-pub(crate) struct Vtable {
+#[allow(missing_docs)]
+pub struct Vtable {
     /// fn(data, ptr, len)
     pub clone: unsafe fn(&AtomicPtr<()>, *const u8, usize) -> Bytes,
     /// fn(data, ptr, len)
@@ -646,8 +647,9 @@ impl Bytes {
         }
     }
 
+    /// Create a new instance with a custom vtable
     #[inline]
-    pub(crate) unsafe fn with_vtable(
+    pub unsafe fn with_vtable(
         ptr: *const u8,
         len: usize,
         data: AtomicPtr<()>,
